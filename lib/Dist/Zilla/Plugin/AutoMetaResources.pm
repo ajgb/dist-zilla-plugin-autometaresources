@@ -195,7 +195,7 @@ sub _build__repository_map {
     return {
         github => {
             url => 'git://github.com/%{user}/%{lcdist}.git',
-            web => 'http://github.com/%{user}/%{lcdist}',
+            web => 'https://github.com/%{user}/%{lcdist}',
             type => 'git',
         },
         gitmo => {

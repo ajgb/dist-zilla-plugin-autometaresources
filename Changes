@@ -1,5 +1,8 @@
 Revision history for  Dist-Zilla-Plugin-AutoMetaResources
 
-0.01    Wed Nov  3 23:51:16 2010
-        First version.
+1.110050    Wed Jan  5 20:48:23 2011
+            github.com is using HTTPS by default
+
+0.01        Wed Nov  3 23:51:16 2010
+            First version.
 

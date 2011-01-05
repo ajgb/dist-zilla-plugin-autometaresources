@@ -25,7 +25,7 @@ is_deeply getMetadata({ 'bugtracker.rt' => 1}), {
 is_deeply getMetadata({ 'bugtracker.github' => [{user => 'ajgb'}]}), {
     resources => {
         'bugtracker' => {
-            'web' => 'http://github.com/ajgbs/test-autometaresources/issues',
+            'web' => 'https://github.com/ajgb/test-autometaresources/issues',
         }
     }
 }, "bugrtracker.github is known";
@@ -38,7 +38,7 @@ is_deeply getMetadata({ 'bugtracker.other' => {}}), {
 is_deeply getMetadata({ 'repository.github' => [{user => 'ajgb'}]}), {
     resources => {
         'repository' => {
-            'web' => 'http://github.com/ajgb/test-autometaresources',
+            'web' => 'https://github.com/ajgb/test-autometaresources',
             'url' => 'git://github.com/ajgb/test-autometaresources.git',
             'type' => 'git',
         }
@@ -48,7 +48,7 @@ is_deeply getMetadata({ 'repository.github' => [{user => 'ajgb'}]}), {
 is_deeply getMetadata({ 'repository.GitHub' => [{user => 'ajgb'}]}), {
     resources => {
         'repository' => {
-            'web' => 'http://github.com/ajgb/test-autometaresources',
+            'web' => 'https://github.com/ajgb/test-autometaresources',
             'url' => 'git://github.com/ajgb/test-autometaresources.git',
             'type' => 'git',
         }

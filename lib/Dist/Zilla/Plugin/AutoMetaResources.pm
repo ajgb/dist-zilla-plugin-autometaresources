@@ -231,7 +231,7 @@ sub _build__bugtracker_map {
             mailto => 'bug-%{dist}@rt.cpan.org',
         },
         github => {
-            web => 'http://github.com/%{user}s/%{lcdist}/issues',
+            web => 'https://github.com/%{user}/%{lcdist}/issues',
         }
     }
 }

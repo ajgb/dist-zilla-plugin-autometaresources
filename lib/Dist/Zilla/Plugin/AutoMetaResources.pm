@@ -173,7 +173,7 @@ Name of the distribution (lowercase)
 
 sub _subs(@) {
     my ($format, $vars) = @_;
-    $format =~ s/%{([\w_\.]+)}/$vars->{$1} || ''/ge;
+    $format =~ s/%\{([\w_\.]+)\}/$vars->{$1} || ''/ge;
     return $format;
 }
 

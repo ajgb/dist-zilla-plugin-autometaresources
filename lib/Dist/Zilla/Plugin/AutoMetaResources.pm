@@ -79,6 +79,15 @@ B<GitHub issues>:
     [MetaResources]
     bugtracker.web    = http://github.com/ajgb/%{lcdist}/issues
 
+B<Bitbucket issues>:
+
+    [AutoMetaResources]
+    bugtracker.bitbucket = user:ajgb
+
+    # same as
+    [MetaResources]
+    bugtracker.web    = https://bitbucket.org/ajgb/%{lcdist}/issues
+
 =head2 REPOSITORY
 
 B<GitHub repository>:
@@ -92,6 +101,17 @@ B<GitHub repository>:
     [MetaResources]
     repository.url    = git://github.com/ajgb/%{lcdist}.git
     repository.web    = http://github.com/ajgb/%{lcdist}
+    repository.type   = git
+
+B<Bitbucket repository>:
+
+    [AutoMetaResources]
+    repository.bitbucket = user:ajgb
+
+    # same as
+    [MetaResources]
+    repository.url    = git@bitbucket.org:ajgb/%{lcdist}.git
+    repository.web    = https://bitbucket.org/ajgb/%{lcdist}
     repository.type   = git
 
 B<Git Moose repository>:
@@ -208,6 +228,11 @@ sub _build__repository_map {
             web => 'http://dev.catalystframework.org/svnweb/Catalyst/browse/%{dist}',
             type => 'svn',
         },
+        bitbucket => {
+            url  => 'git@bitbucket.org:%{user}/%{lcdist}.git',
+            web  => 'https://bitbucket.org/%{user}/%{lcdist}',
+            type => 'git',
+        },
         (map {
             ($_ => {
                 url     => "git://git.shadowcat.co.uk/$_/%{dist}.git",
@@ -232,8 +257,11 @@ sub _build__bugtracker_map {
         },
         github => {
             web => 'https://github.com/%{user}/%{lcdist}/issues',
-        }
-    }
+        },
+        bitbucket => {
+            web => 'https://bitbucket.org/%{user}/%{lcdist}/issues',
+        },
+    };
 }
 
 sub BUILDARGS {

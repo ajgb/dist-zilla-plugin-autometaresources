@@ -12,7 +12,7 @@ SYNOPSIS
         [AutoMetaResources]
         bugtracker.rt      = 1
         repository.github  = user:ajgb
-        homepage           = http://search.cpan.org/dist/%{dist}
+        homepage           = https://metacpan.org/release/%{dist}
 
     or in PluginBundle::Easy
 
@@ -21,7 +21,7 @@ SYNOPSIS
                 AutoMetaResources => {
                     'bugtracker.rt' => 1,
                     'repository.github' => [{ user => 'ajgb' }],
-                    'homepage' => 'http://search.cpan.org/dist/%{dist}',
+                    'homepage' => 'https://metacpan.org/release/%{dist}',
                 }
             ]
         );
@@ -34,7 +34,7 @@ SYNOPSIS
         repository.url    = git://github.com/ajgb/dist-zilla-plugin-autometaresources.git
         repository.web    = http://github.com/ajgb/dist-zilla-plugin-autometaresources
         repository.type   = git
-        homepage          = http://search.cpan.org/dist/Dist-Zilla-Plugin-AutoMetaResources
+        homepage          = https://metacpan.org/release/Dist-Zilla-Plugin-AutoMetaResources
 
 DESCRIPTION
     If you find repeating the dist name again in the configuration really
@@ -144,7 +144,7 @@ CONFIGURATION
 
   OTHER
         [AutoMetaResources]
-        homepage = http://search.cpan.org/dist/%{dist}
+        homepage = https://metacpan.org/release/%{dist}
 
     You are free to pass other valid metadata options to be included as
     resources. Values can contain following variables:

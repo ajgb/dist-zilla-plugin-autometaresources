@@ -15,7 +15,7 @@ with 'Dist::Zilla::Role::MetaProvider';
     [AutoMetaResources]
     bugtracker.rt      = 1
     repository.github  = user:ajgb
-    homepage           = http://search.cpan.org/dist/%{dist}
+    homepage           = https://metacpan.org/release/%{dist}
 
 or in PluginBundle::Easy
 
@@ -24,7 +24,7 @@ or in PluginBundle::Easy
             AutoMetaResources => {
                 'bugtracker.rt' => 1,
                 'repository.github' => [{ user => 'ajgb' }],
-                'homepage' => 'http://search.cpan.org/dist/%{dist}',
+                'homepage' => 'https://metacpan.org/release/%{dist}',
             }
         ]
     );
@@ -37,7 +37,7 @@ both for Dist::Zilla::Plugin::AutoMetaResources would be equivalent of
     repository.url    = git://github.com/ajgb/dist-zilla-plugin-autometaresources.git
     repository.web    = http://github.com/ajgb/dist-zilla-plugin-autometaresources
     repository.type   = git
-    homepage          = http://search.cpan.org/dist/Dist-Zilla-Plugin-AutoMetaResources
+    homepage          = https://metacpan.org/release/Dist-Zilla-Plugin-AutoMetaResources
 
 =head1 DESCRIPTION
 
@@ -152,7 +152,7 @@ and
 =head2 OTHER
 
     [AutoMetaResources]
-    homepage = http://search.cpan.org/dist/%{dist}
+    homepage = https://metacpan.org/release/%{dist}
 
 You are free to pass other valid metadata options to be included as resources.
 Values can contain following variables:

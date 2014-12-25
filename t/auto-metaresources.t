@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 13;
+use Test::More tests => 15;
 use Test::NoWarnings;
 use Test::MockObject;
 
@@ -30,6 +30,14 @@ is_deeply getMetadata({ 'bugtracker.github' => [{user => 'ajgb'}]}), {
     }
 }, "bugrtracker.github is known";
 
+is_deeply getMetadata({ 'bugtracker.bitbucket' => [{user => 'xenoterracide'}]}), {
+    resources => {
+        'bugtracker' => {
+            'web' => 'https://bitbucket.org/xenoterracide/test-autometaresources/issues',
+        }
+    }
+}, "bugrtracker.bitbucket is known";
+
 is_deeply getMetadata({ 'bugtracker.other' => {}}), {
     resources => { }
 }, "bugrtracker.other is not recognised";
@@ -44,6 +52,16 @@ is_deeply getMetadata({ 'repository.github' => [{user => 'ajgb'}]}), {
         }
     }
 }, "repository.github is known";
+
+is_deeply getMetadata({ 'repository.bitbucket' => [{user => 'xenoterracide'}]}), {
+    resources => {
+        'repository' => {
+            'web' => 'https://bitbucket.org/xenoterracide/test-autometaresources',
+            'url' => 'git@bitbucket.org:xenoterracide/test-autometaresources.git',
+            'type' => 'git',
+        }
+    }
+}, "repository.bitbucket is known";
 
 is_deeply getMetadata({ 'repository.GitHub' => [{user => 'ajgb'}]}), {
     resources => {

@@ -4,128 +4,123 @@ use warnings;
 
 use Test::More tests => 15;
 use Test::NoWarnings;
-use Test::MockObject;
+use Test::DZil;
 
-use Dist::Zilla::Plugin::AutoMetaResources;
-
-is_deeply getMetadata({}), {
-    resources => {}
-}, "no params generate no metadata";
+is_deeply getMetadata({}),
+    {}
+, "no params generate no metadata";
 
 
-is_deeply getMetadata({ 'bugtracker.rt' => 1}), {
-    resources => {
+is_deeply getMetadata({ 'bugtracker.rt' => 1}),
+    {
         'bugtracker' => {
-            'web' => 'https://rt.cpan.org/Public/Dist/Display.html?Name=Test-AutoMetaResources',
-            'mailto' => 'bug-Test-AutoMetaResources@rt.cpan.org'
+            'web' => 'https://rt.cpan.org/Public/Dist/Display.html?Name=DZT-Sample',
+            'mailto' => 'bug-DZT-Sample@rt.cpan.org'
         }
     }
-}, "bugrtracker.rt is known";
+, "bugrtracker.rt is known";
 
-is_deeply getMetadata({ 'bugtracker.github' => [{user => 'ajgb'}]}), {
-    resources => {
+is_deeply getMetadata({ 'bugtracker.github' => 'user:ajgb' }),
+    {
         'bugtracker' => {
-            'web' => 'https://github.com/ajgb/test-autometaresources/issues',
+            'web' => 'https://github.com/ajgb/dzt-sample/issues',
         }
     }
-}, "bugrtracker.github is known";
+, "bugrtracker.github is known";
 
-is_deeply getMetadata({ 'bugtracker.bitbucket' => [{user => 'xenoterracide'}]}), {
-    resources => {
-        'bugtracker' => {
-            'web' => 'https://bitbucket.org/xenoterracide/test-autometaresources/issues',
-        }
+is_deeply getMetadata({ 'bugtracker.bitbucket' => 'user:xenoterracide' }), {
+    'bugtracker' => {
+        'web' => 'https://bitbucket.org/xenoterracide/dzt-sample/issues',
     }
 }, "bugrtracker.bitbucket is known";
 
-is_deeply getMetadata({ 'bugtracker.other' => {}}), {
-    resources => { }
-}, "bugrtracker.other is not recognised";
+is_deeply getMetadata({ 'bugtracker.other' => 1 }),
+    { }
+, "bugrtracker.other is not recognised";
 
 
-is_deeply getMetadata({ 'repository.github' => [{user => 'ajgb'}]}), {
-    resources => {
+is_deeply getMetadata({ 'repository.github' => 'user:ajgb' }),
+    {
         'repository' => {
-            'web' => 'https://github.com/ajgb/test-autometaresources',
-            'url' => 'git://github.com/ajgb/test-autometaresources.git',
+            'web' => 'https://github.com/ajgb/dzt-sample',
+            'url' => 'git://github.com/ajgb/dzt-sample.git',
             'type' => 'git',
         }
     }
-}, "repository.github is known";
+, "repository.github is known";
 
-is_deeply getMetadata({ 'repository.bitbucket' => [{user => 'xenoterracide'}]}), {
-    resources => {
-        'repository' => {
-            'web' => 'https://bitbucket.org/xenoterracide/test-autometaresources',
-            'url' => 'git@bitbucket.org:xenoterracide/test-autometaresources.git',
-            'type' => 'git',
-        }
+is_deeply getMetadata({ 'repository.bitbucket' => 'user:xenoterracide' }), {
+    'repository' => {
+        'web' => 'https://bitbucket.org/xenoterracide/dzt-sample',
+        'url' => 'git@bitbucket.org:xenoterracide/dzt-sample.git',
+        'type' => 'git',
     }
 }, "repository.bitbucket is known";
 
-is_deeply getMetadata({ 'repository.GitHub' => [{user => 'ajgb'}]}), {
-    resources => {
+is_deeply getMetadata({ 'repository.GitHub' => 'user:ajgb' }),
+    {
         'repository' => {
-            'web' => 'https://github.com/ajgb/test-autometaresources',
-            'url' => 'git://github.com/ajgb/test-autometaresources.git',
+            'web' => 'https://github.com/ajgb/dzt-sample',
+            'url' => 'git://github.com/ajgb/dzt-sample.git',
             'type' => 'git',
         }
     }
-}, "repository.GitHub is known";
+, "repository.GitHub is known";
 
-is_deeply getMetadata({ 'repository.gitmo' => 1}), {
-    resources => {
+is_deeply getMetadata({ 'repository.gitmo' => 1 }),
+    {
         'repository' => {
-            'web' => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Test-AutoMetaResources.git;a=summary',
-            'url' => 'git://git.moose.perl.org/Test-AutoMetaResources.git',
+            'web' => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/DZT-Sample.git;a=summary',
+            'url' => 'git://git.moose.perl.org/DZT-Sample.git',
             'type' => 'git',
         }
     }
-}, "repository.gitmo is known";
+, "repository.gitmo is known";
 
-is_deeply getMetadata({ 'repository.catsvn' => 1}), {
-    resources => {
+is_deeply getMetadata({ 'repository.catsvn' => 1 }),
+    {
         'repository' => {
-            'web' => 'http://dev.catalystframework.org/svnweb/Catalyst/browse/Test-AutoMetaResources',
-            'url' => 'http://dev.catalyst.perl.org/repos/Catalyst/Test-AutoMetaResources/',
+            'web' => 'http://dev.catalystframework.org/svnweb/Catalyst/browse/DZT-Sample',
+            'url' => 'http://dev.catalyst.perl.org/repos/Catalyst/DZT-Sample/',
             'type' => 'svn',
         }
     }
-}, "repository.catsvn is known";
+, "repository.catsvn is known";
 
 for (qw(catagits p5sagit dbsrgits)) {
-    is_deeply getMetadata({ "repository.$_" => 1}), {
-        resources => {
+    is_deeply getMetadata({ "repository.$_" => 1 }),
+        {
             'repository' => {
-                'web' => "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=$_/Test-AutoMetaResources.git;a=summary",
-                'url' => "git://git.shadowcat.co.uk/$_/Test-AutoMetaResources.git",
+                'web' => "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=$_/DZT-Sample.git;a=summary",
+                'url' => "git://git.shadowcat.co.uk/$_/DZT-Sample.git",
                 'type' => 'git',
             }
         }
-    }, "repository.$_ is known";
+    , "repository.$_ is known";
 };
 
-is_deeply getMetadata({ 'homepage' => 'http://myperlprojects.org/%{lcdist}/'}), {
-    resources => {
-        'homepage' => 'http://myperlprojects.org/test-autometaresources/'
+is_deeply getMetadata({ 'homepage' => 'http://myperlprojects.org/%{lcdist}/' } ),
+    {
+        'homepage' => 'http://myperlprojects.org/dzt-sample/'
     }
-}, "custom params passed and processed";
+, "custom params passed and processed";
 
 
 
 sub getMetadata {
     my $args = shift;
 
-    my $zilla = Test::MockObject->new;
-    $zilla->set_isa('Dist::Zilla');
-    $zilla->mock(name => sub { 'Test-AutoMetaResources' });
-
-    return Dist::Zilla::Plugin::AutoMetaResources->new(
+    my $tzil = Builder->from_config(
+        { dist_root => 't/does-not-exist' },
         {
-            plugin_name => 'AutoMetaResources',
-            zilla => $zilla,
-            %$args
-        }
-    )->metadata;
+            add_files => {
+                'source/dist.ini' => simple_ini(
+                    [ AutoMetaResources => $args ],
+                ),
+            },
+        },
+    );
+
+    return $tzil->distmeta->{resources};
 }
 

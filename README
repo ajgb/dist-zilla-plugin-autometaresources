@@ -1,184 +1,186 @@
-=head1 SYNOPSIS
+NAME
+    Dist::Zilla::Plugin::AutoMetaResources - Automagical MetaResources
 
-    # dist.ini
-    name = Dist-Zilla-Plugin-AutoMetaResources
-    ...
+VERSION
+    version 1.21
 
-    [AutoMetaResources]
-    bugtracker.github  = user:ajgb
-    repository.github  = user:ajgb
-    homepage           = https://metacpan.org/release/%{dist}
+SYNOPSIS
+        # dist.ini
+        name = Dist-Zilla-Plugin-AutoMetaResources
+        ...
 
-or in PluginBundle::Easy
+        [AutoMetaResources]
+        bugtracker.github  = user:ajgb
+        repository.github  = user:ajgb
+        homepage           = https://metacpan.org/release/%{dist}
 
-    $self->add_plugins(
-        [
-            AutoMetaResources => {
-                'bugtracker.github' => [{ user => 'ajgb' }],
-                'repository.github' => [{ user => 'ajgb' }],
-                'homepage' => 'https://metacpan.org/release/%{dist}',
-            }
-        ]
-    );
+    or in PluginBundle::Easy
 
-both for Dist::Zilla::Plugin::AutoMetaResources would be equivalent of
+        $self->add_plugins(
+            [
+                AutoMetaResources => {
+                    'bugtracker.github' => [{ user => 'ajgb' }],
+                    'repository.github' => [{ user => 'ajgb' }],
+                    'homepage' => 'https://metacpan.org/release/%{dist}',
+                }
+            ]
+        );
 
-    [MetaResources]
-    bugtracker.web    = https://github.com/ajgb/dist-zilla-plugin-autometaresources/issues
-    repository.url    = git://github.com/ajgb/dist-zilla-plugin-autometaresources.git
-    repository.web    = http://github.com/ajgb/dist-zilla-plugin-autometaresources
-    repository.type   = git
-    homepage          = https://metacpan.org/release/Dist-Zilla-Plugin-AutoMetaResources
+    both for Dist::Zilla::Plugin::AutoMetaResources would be equivalent of
 
-=head1 DESCRIPTION
+        [MetaResources]
+        bugtracker.web    = https://github.com/ajgb/dist-zilla-plugin-autometaresources/issues
+        repository.url    = git://github.com/ajgb/dist-zilla-plugin-autometaresources.git
+        repository.web    = http://github.com/ajgb/dist-zilla-plugin-autometaresources
+        repository.type   = git
+        homepage          = https://metacpan.org/release/Dist-Zilla-Plugin-AutoMetaResources
 
-If you find repeating the dist name again in the configuration really
-annoying, this plugin comes to the rescue!
+DESCRIPTION
+    If you find repeating the dist name again in the configuration really
+    annoying, this plugin comes to the rescue!
 
-=head1 CONFIGURATION
+CONFIGURATION
+    Most of the known resources requires just boolean flag to be enabled,
+    but you are free to pass your own options:
 
-Most of the known resources requires just boolean flag to be enabled, but you
-are free to pass your own options:
+        bugtracker.rt =  dist:Other-Name;lcdist:other-name
 
-    bugtracker.rt =  dist:Other-Name;lcdist:other-name
+    which is transformed to:
 
-which is transformed to:
+        [{
+            dist => 'Other-Name',
+            lcdist => 'other-name',
+        }]
 
-    [{
-        dist => 'Other-Name',
-        lcdist => 'other-name',
-    }]
+  BUGTRACKER
+    RT bugtracker:
 
-=head2 BUGTRACKER
+        [AutoMetaResources]
+        bugtracker.rt = 1
 
-B<RT bugtracker>:
+        # same as
+        [MetaResources]
+        bugtracker.web    = https://rt.cpan.org/Public/Dist/Display.html?Name=%{dist}
+        bugtracker.mailto = bug-%{dist}@rt.cpan.org
 
-    [AutoMetaResources]
-    bugtracker.rt = 1
+    GitHub issues:
 
-    # same as
-    [MetaResources]
-    bugtracker.web    = https://rt.cpan.org/Public/Dist/Display.html?Name=%{dist}
-    bugtracker.mailto = bug-%{dist}@rt.cpan.org
+        [AutoMetaResources]
+        bugtracker.github = user:ajgb
 
-B<GitHub issues>:
+        # same as
+        [MetaResources]
+        bugtracker.web    = http://github.com/ajgb/%{lcdist}/issues
 
-    [AutoMetaResources]
-    bugtracker.github = user:ajgb
+    Bitbucket issues:
 
-    # same as
-    [MetaResources]
-    bugtracker.web    = http://github.com/ajgb/%{lcdist}/issues
+        [AutoMetaResources]
+        bugtracker.bitbucket = user:ajgb
 
-B<Bitbucket issues>:
+        # same as
+        [MetaResources]
+        bugtracker.web    = https://bitbucket.org/ajgb/%{lcdist}/issues
 
-    [AutoMetaResources]
-    bugtracker.bitbucket = user:ajgb
+  REPOSITORY
+    GitHub repository:
 
-    # same as
-    [MetaResources]
-    bugtracker.web    = https://bitbucket.org/ajgb/%{lcdist}/issues
+        [AutoMetaResources]
+        repository.github = user:ajgb
+        # or
+        repository.GitHub = user:ajgb
 
-=head2 REPOSITORY
+        # same as
+        [MetaResources]
+        repository.url    = git://github.com/ajgb/%{lcdist}.git
+        repository.web    = http://github.com/ajgb/%{lcdist}
+        repository.type   = git
 
-B<GitHub repository>:
+    Bitbucket repository:
 
-    [AutoMetaResources]
-    repository.github = user:ajgb
-    # or
-    repository.GitHub = user:ajgb
+        [AutoMetaResources]
+        repository.bitbucket = user:ajgb
 
-    # same as
-    [MetaResources]
-    repository.url    = git://github.com/ajgb/%{lcdist}.git
-    repository.web    = http://github.com/ajgb/%{lcdist}
-    repository.type   = git
+        # same as
+        [MetaResources]
+        repository.url    = git@bitbucket.org:ajgb/%{lcdist}.git
+        repository.web    = https://bitbucket.org/ajgb/%{lcdist}
+        repository.type   = git
 
-B<Bitbucket repository>:
+    Git Moose repository:
 
-    [AutoMetaResources]
-    repository.bitbucket = user:ajgb
+        [AutoMetaResources]
+        repository.gitmo = 1
 
-    # same as
-    [MetaResources]
-    repository.url    = git@bitbucket.org:ajgb/%{lcdist}.git
-    repository.web    = https://bitbucket.org/ajgb/%{lcdist}
-    repository.type   = git
+        # same as
+        [MetaResources]
+        repository.url    = git://git.moose.perl.org/%{dist}.git
+        repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/%{dist}.git;a=summary
+        repository.type   = git
 
-B<Git Moose repository>:
+    Catalyst Subversion repository:
 
-    [AutoMetaResources]
-    repository.gitmo = 1
+        [AutoMetaResources]
+        repository.catsvn = 1
 
-    # same as
-    [MetaResources]
-    repository.url    = git://git.moose.perl.org/%{dist}.git
-    repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/%{dist}.git;a=summary
-    repository.type   = git
+        # same as
+        [MetaResources]
+        repository.url    = http://dev.catalyst.perl.org/repos/Catalyst/%{dist}/
+        repository.web    = http://dev.catalystframework.org/svnweb/Catalyst/browse/%{dist}
+        repository.type   = svn
 
-B<Catalyst Subversion repository>:
+    Shadowcat's Git repositories:
 
-    [AutoMetaResources]
-    repository.catsvn = 1
+        [AutoMetaResources]
+        repository.catagits = 1
 
-    # same as
-    [MetaResources]
-    repository.url    = http://dev.catalyst.perl.org/repos/Catalyst/%{dist}/
-    repository.web    = http://dev.catalystframework.org/svnweb/Catalyst/browse/%{dist}
-    repository.type   = svn
+        # same as
+        [MetaResources]
+        repository.url    = git://git.shadowcat.co.uk/catagits/%{dist}.git
+        repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=catagits/%{dist}.git;a=summary
+        repository.type   = git
 
-B<Shadowcat's Git repositories>:
+    and
 
-    [AutoMetaResources]
-    repository.catagits = 1
+        [AutoMetaResources]
+        repository.p5sagit = 1
 
-    # same as
-    [MetaResources]
-    repository.url    = git://git.shadowcat.co.uk/catagits/%{dist}.git
-    repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=catagits/%{dist}.git;a=summary
-    repository.type   = git
+        # same as
+        [MetaResources]
+        repository.url    = git://git.shadowcat.co.uk/p5sagit/%{dist}.git
+        repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/%{dist}.git;a=summary
+        repository.type   = git
 
-and
+    and
 
-    [AutoMetaResources]
-    repository.p5sagit = 1
+        [AutoMetaResources]
+        repository.dbsrgits = 1
 
-    # same as
-    [MetaResources]
-    repository.url    = git://git.shadowcat.co.uk/p5sagit/%{dist}.git
-    repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/%{dist}.git;a=summary
-    repository.type   = git
+        # same as
+        [MetaResources]
+        repository.url    = git://git.shadowcat.co.uk/dbsrgits/%{dist}.git
+        repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=dbsrgits/%{dist}.git;a=summary
+        repository.type   = git
 
-and
+  OTHER
+        [AutoMetaResources]
+        homepage = https://metacpan.org/release/%{dist}
 
-    [AutoMetaResources]
-    repository.dbsrgits = 1
+    You are free to pass other valid metadata options to be included as
+    resources. Values can contain following variables:
 
-    # same as
-    [MetaResources]
-    repository.url    = git://git.shadowcat.co.uk/dbsrgits/%{dist}.git
-    repository.web    = http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=dbsrgits/%{dist}.git;a=summary
-    repository.type   = git
+    *%{dist}*
+        Name of the distribution
 
-=head2 OTHER
+    *%{lcdist}*
+        Name of the distribution (lowercase)
 
-    [AutoMetaResources]
-    homepage = https://metacpan.org/release/%{dist}
+AUTHOR
+    Alex J. G. Burzyński <ajgb@cpan.org>
 
-You are free to pass other valid metadata options to be included as resources.
-Values can contain following variables:
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Alex J. G. Burzyński
+    <ajgb@cpan.org>.
 
-=over
-
-=item I<%{dist}>
-
-Name of the distribution
-
-=item I<%{lcdist}>
-
-Name of the distribution (lowercase)
-
-=back
-
-=pod
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

@@ -1,6 +1,8 @@
 Revision history for  Dist-Zilla-Plugin-AutoMetaResources
 
 {{$NEXT}}
+
+1.21   2015-05-07 23:08:40
     [gh#2] move off of Test::MockObject
         Provided by karenetheridge
     [gh#4] add bitbucket support

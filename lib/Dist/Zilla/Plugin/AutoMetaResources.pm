@@ -228,7 +228,7 @@ sub _build__repository_map {
             type => 'svn',
         },
         bitbucket => {
-            url  => 'git@bitbucket.org:%{user}/%{lcdist}.git',
+            url  => 'git://bitbucket.org:%{user}/%{lcdist}.git',
             web  => 'https://bitbucket.org/%{user}/%{lcdist}',
             type => 'git',
         },

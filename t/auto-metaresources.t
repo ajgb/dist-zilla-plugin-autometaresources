@@ -49,13 +49,15 @@ is_deeply getMetadata({ 'repository.github' => 'user:ajgb' }),
     }
 , "repository.github is known";
 
-is_deeply getMetadata({ 'repository.bitbucket' => 'user:xenoterracide' }), {
-    'repository' => {
-        'web' => 'https://bitbucket.org/xenoterracide/dzt-sample',
-        'url' => 'git@bitbucket.org:xenoterracide/dzt-sample.git',
-        'type' => 'git',
+is_deeply getMetadata({ 'repository.bitbucket' => 'user:xenoterracide' }),
+    {
+        'repository' => {
+            'web' => 'https://bitbucket.org/xenoterracide/dzt-sample',
+            'url' => 'git://bitbucket.org:xenoterracide/dzt-sample.git',
+            'type' => 'git',
+        }
     }
-}, "repository.bitbucket is known";
+, "repository.bitbucket is known";
 
 is_deeply getMetadata({ 'repository.GitHub' => 'user:ajgb' }),
     {

@@ -109,7 +109,7 @@ B<Bitbucket repository>:
 
     # same as
     [MetaResources]
-    repository.url    = git@bitbucket.org:ajgb/%{lcdist}.git
+    repository.url    = git://bitbucket.org:ajgb/%{lcdist}.git
     repository.web    = https://bitbucket.org/ajgb/%{lcdist}
     repository.type   = git
 

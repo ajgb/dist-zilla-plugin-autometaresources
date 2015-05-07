@@ -13,7 +13,7 @@ with 'Dist::Zilla::Role::MetaProvider';
     ...
 
     [AutoMetaResources]
-    bugtracker.rt      = 1
+    bugtracker.github  = user:ajgb
     repository.github  = user:ajgb
     homepage           = https://metacpan.org/release/%{dist}
 
@@ -22,7 +22,7 @@ or in PluginBundle::Easy
     $self->add_plugins(
         [
             AutoMetaResources => {
-                'bugtracker.rt' => 1,
+                'bugtracker.github' => [{ user => 'ajgb' }],
                 'repository.github' => [{ user => 'ajgb' }],
                 'homepage' => 'https://metacpan.org/release/%{dist}',
             }
@@ -32,8 +32,7 @@ or in PluginBundle::Easy
 both for Dist::Zilla::Plugin::AutoMetaResources would be equivalent of
 
     [MetaResources]
-    bugtracker.web    = https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-AutoMetaResources
-    bugtracker.mailto = bug-Dist-Zilla-Plugin-AutoMetaResources@rt.cpan.org
+    bugtracker.web    = https://github.com/ajgb/dist-zilla-plugin-autometaresources/issues
     repository.url    = git://github.com/ajgb/dist-zilla-plugin-autometaresources.git
     repository.web    = http://github.com/ajgb/dist-zilla-plugin-autometaresources
     repository.type   = git
